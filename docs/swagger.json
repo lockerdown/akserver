@@ -1,0 +1,225 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "百晓HIDS服务管理平台后端API接口文档",
+        "title": "百晓HIDS服务管理平台",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support"
+        },
+        "version": "1.0.0"
+    },
+    "host": "10.10.27.11:8080",
+    "paths": {
+        "/account/getPublicKey": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "account"
+                ],
+                "summary": "获取密钥",
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 200,\"data\" :string,\"msg\":  \"success\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "{\"code\": 500,\"data\" :\"\",\"msg\":  \"errinfo\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/monitor/file": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "monitor"
+                ],
+                "summary": "进程监控数据上报接口",
+                "parameters": [
+                    {
+                        "description": "ProcessMonitor",
+                        "name": "ProcessMonitor",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/monitoring.ProcessMonitor"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 200,\"data\" :\"\",\"msg\":  \"success\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "{\"code\": 400,\"data\" :\"\",\"msg\":  \"errinfo\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/monitor/net": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "monitor"
+                ],
+                "summary": "主机网络监控数据上报接口",
+                "parameters": [
+                    {
+                        "description": "NetWorkMonitor",
+                        "name": "NetWorkMonitor",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/monitoring.NetWorkMonitor"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 200,\"data\" :\"\",\"msg\":  \"success\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "{\"code\": 400,\"data\" :\"\",\"msg\":  \"errinfo\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "monitoring.NetWorkMonitor": {
+            "type": "object",
+            "properties": {
+                "data_type": {
+                    "description": "数据类型",
+                    "type": "integer"
+                },
+                "dstIp": {
+                    "description": "目的地址",
+                    "type": "string"
+                },
+                "dstPort": {
+                    "description": "目的端口",
+                    "type": "integer"
+                },
+                "exe_file": {
+                    "description": "进程文件",
+                    "type": "string"
+                },
+                "gid": {
+                    "description": "用户组ID",
+                    "type": "integer"
+                },
+                "namespace": {
+                    "description": "进程命名空间ID",
+                    "type": "integer"
+                },
+                "pid": {
+                    "description": "进程id",
+                    "type": "integer"
+                },
+                "srcIp": {
+                    "description": "源地址",
+                    "type": "string"
+                },
+                "srcPort": {
+                    "description": "源端口",
+                    "type": "integer"
+                },
+                "timestamp": {
+                    "description": "事件时间戳",
+                    "type": "integer"
+                },
+                "uid": {
+                    "description": "用户ID",
+                    "type": "integer"
+                }
+            }
+        },
+        "monitoring.ProcessMonitor": {
+            "type": "object",
+            "properties": {
+                "argv": {
+                    "description": "进程参数",
+                    "type": "string"
+                },
+                "data_type": {
+                    "description": "数据类型",
+                    "type": "integer"
+                },
+                "exe_file": {
+                    "description": "进程文件",
+                    "type": "string"
+                },
+                "exe_hash": {
+                    "description": "文件hash",
+                    "type": "string"
+                },
+                "gid": {
+                    "description": "用户组ID",
+                    "type": "integer"
+                },
+                "group_name": {
+                    "description": "组名",
+                    "type": "string"
+                },
+                "namespace": {
+                    "description": "进程命名空间ID",
+                    "type": "integer"
+                },
+                "pid": {
+                    "description": "进程id",
+                    "type": "integer"
+                },
+                "ppid": {
+                    "description": "父进程ID",
+                    "type": "integer"
+                },
+                "timestamp": {
+                    "description": "事件时间戳",
+                    "type": "integer"
+                },
+                "uid": {
+                    "description": "用户ID",
+                    "type": "integer"
+                },
+                "user_name": {
+                    "description": "用户名",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

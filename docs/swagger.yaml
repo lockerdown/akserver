@@ -1,0 +1,154 @@
+definitions:
+  monitoring.NetWorkMonitor:
+    properties:
+      data_type:
+        description: 数据类型
+        type: integer
+      dstIp:
+        description: 目的地址
+        type: string
+      dstPort:
+        description: 目的端口
+        type: integer
+      exe_file:
+        description: 进程文件
+        type: string
+      gid:
+        description: 用户组ID
+        type: integer
+      namespace:
+        description: 进程命名空间ID
+        type: integer
+      pid:
+        description: 进程id
+        type: integer
+      srcIp:
+        description: 源地址
+        type: string
+      srcPort:
+        description: 源端口
+        type: integer
+      timestamp:
+        description: 事件时间戳
+        type: integer
+      uid:
+        description: 用户ID
+        type: integer
+    type: object
+  monitoring.ProcessMonitor:
+    properties:
+      argv:
+        description: 进程参数
+        type: string
+      data_type:
+        description: 数据类型
+        type: integer
+      exe_file:
+        description: 进程文件
+        type: string
+      exe_hash:
+        description: 文件hash
+        type: string
+      gid:
+        description: 用户组ID
+        type: integer
+      group_name:
+        description: 组名
+        type: string
+      namespace:
+        description: 进程命名空间ID
+        type: integer
+      pid:
+        description: 进程id
+        type: integer
+      ppid:
+        description: 父进程ID
+        type: integer
+      timestamp:
+        description: 事件时间戳
+        type: integer
+      uid:
+        description: 用户ID
+        type: integer
+      user_name:
+        description: 用户名
+        type: string
+    type: object
+host: 10.10.27.11:8080
+info:
+  contact:
+    name: API Support
+    url: http://www.swagger.io/support
+  description: 百晓HIDS服务管理平台后端API接口文档
+  title: 百晓HIDS服务管理平台
+  version: 1.0.0
+paths:
+  /account/getPublicKey:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code": 200,"data" :string,"msg":  "success"}'
+          schema:
+            type: string
+        "500":
+          description: '{"code": 500,"data" :"","msg":  "errinfo"}'
+          schema:
+            type: string
+      summary: 获取密钥
+      tags:
+      - account
+  /monitor/file:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: ProcessMonitor
+        in: body
+        name: ProcessMonitor
+        required: true
+        schema:
+          $ref: '#/definitions/monitoring.ProcessMonitor'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code": 200,"data" :"","msg":  "success"}'
+          schema:
+            type: string
+        "400":
+          description: '{"code": 400,"data" :"","msg":  "errinfo"}'
+          schema:
+            type: string
+      summary: 进程监控数据上报接口
+      tags:
+      - monitor
+  /monitor/net:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: NetWorkMonitor
+        in: body
+        name: NetWorkMonitor
+        required: true
+        schema:
+          $ref: '#/definitions/monitoring.NetWorkMonitor'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code": 200,"data" :"","msg":  "success"}'
+          schema:
+            type: string
+        "400":
+          description: '{"code": 400,"data" :"","msg":  "errinfo"}'
+          schema:
+            type: string
+      summary: 主机网络监控数据上报接口
+      tags:
+      - monitor
+swagger: "2.0"
