@@ -86,9 +86,9 @@ paths:
   /account/getPublicKey:
     get:
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: '{"code": 200,"data" :string,"msg":  "success"}'
@@ -100,20 +100,20 @@ paths:
             type: string
       summary: 获取密钥
       tags:
-      - account
+        - account
   /monitor/file:
     post:
       consumes:
-      - application/json
+        - application/json
       parameters:
-      - description: ProcessMonitor
-        in: body
-        name: ProcessMonitor
-        required: true
-        schema:
-          $ref: '#/definitions/monitoring.ProcessMonitor'
+        - description: ProcessMonitor
+          in: body
+          name: ProcessMonitor
+          required: true
+          schema:
+            $ref: '#/definitions/monitoring.ProcessMonitor'
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: '{"code": 200,"data" :"","msg":  "success"}'
@@ -125,20 +125,20 @@ paths:
             type: string
       summary: 进程监控数据上报接口
       tags:
-      - monitor
+        - monitor
   /monitor/net:
     post:
       consumes:
-      - application/json
+        - application/json
       parameters:
-      - description: NetWorkMonitor
-        in: body
-        name: NetWorkMonitor
-        required: true
-        schema:
-          $ref: '#/definitions/monitoring.NetWorkMonitor'
+        - description: NetWorkMonitor
+          in: body
+          name: NetWorkMonitor
+          required: true
+          schema:
+            $ref: '#/definitions/monitoring.NetWorkMonitor'
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: '{"code": 200,"data" :"","msg":  "success"}'
@@ -150,5 +150,5 @@ paths:
             type: string
       summary: 主机网络监控数据上报接口
       tags:
-      - monitor
+        - monitor
 swagger: "2.0"

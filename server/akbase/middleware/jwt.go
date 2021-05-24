@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"hogwarts/center/base"
 	"hogwarts/setting"

@@ -10,7 +10,7 @@ import (
 
 //FileEvent 文件监控接口字段
 type FileEvent struct {
-	Timestamp uint64 `json:"timestamp" xorm:"timestamp"`                       //事件时间戳
+	Timestamp uint64 `json:"timestamp" xorm:"BigInt notnull 'timestamp'"`      //事件时间戳
 	Data_type uint32 `json:"data_type" xorm:"data_type" enum:"1001,1002,1003"` //数据类型
 	Pid       uint32 `json:"pid" xorm:"pid"`                                   //进程id
 	Ppid      uint32 `json:"ppid" xorm:"ppid"`                                 //父进程ID
@@ -62,6 +62,8 @@ func fileMonitor(c *gin.Context) {
 		c.JSON(http.StatusOK, base.FailReturn("请求数据解析错误"))
 		return
 	}
+
+	fe.TableSyn()
 
 	if err := fe.Validate(); err != nil {
 		c.JSON(http.StatusOK, base.FailReturn(err.Error()))

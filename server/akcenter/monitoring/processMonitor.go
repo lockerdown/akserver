@@ -23,7 +23,7 @@ type ProcessEvent struct {
 	Gid        uint32 `json:"gid" xorm:"gid"`                                   //用户组ID
 	GroupName  string `json:"group_name" xorm:"group_name"`                     //组名
 	Namespace  uint32 `json:"namespace" xorm:"namespace"`                       //进程命名空间ID
-	Timestamp  uint64 `json:"timestamp" xorm:"timestamp"`                       //事件时间戳
+	Timestamp  uint64 `json:"timestamp" xorm:"BigInt notnull 'timestamp'"`      //事件时间戳
 }
 
 func (pe *ProcessEvent) TableName() string {
@@ -58,12 +58,15 @@ func (pe *ProcessEvent) Print() {
 // @Success 200	{string} json "{"code": 200,"data" :"","msg":  "success"}"
 // @Failure 400 {string} json "{"code": 400,"data" :"","msg":  "errinfo"}"
 // @Router /monitor/process [POST]
-func processMonitor(c *gin.Context){
+func processMonitor(c *gin.Context) {
 	var pe ProcessEvent
 	if c.BindJSON(&pe) != nil {
 		c.JSON(http.StatusBadRequest, base.FailReturn("请求数据解析错误"))
 		return
 	}
+	pe.Print()
+
+	pe.TableSyn()
 
 	if err := pe.Validate(); err != nil {
 		c.JSON(http.StatusOK, base.FailReturn(err.Error()))

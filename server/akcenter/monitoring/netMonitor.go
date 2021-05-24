@@ -10,7 +10,7 @@ import (
 
 //NetEvent 网络监控接口字段
 type NetEvent struct {
-	Timestamp uint64 `json:"timestamp" xorm:"timestamp"`                       //事件时间戳
+	Timestamp uint64 `json:"timestamp" xorm:"BigInt notnull 'timestamp'"`      //事件时间戳
 	Data_type uint32 `json:"data_type" xorm:"data_type" enum:"1001,1002,1003"` //数据类型
 	Pid       uint32 `json:"pid" xorm:"pid"`                                   //进程id
 	Uid       uint32 `json:"uid" xorm:"uid"`                                   //用户ID
@@ -48,7 +48,6 @@ func (ne *NetEvent) Print() {
 	log.Print(ne)
 }
 
-
 //主机网络监控数据上报接口
 // @Summary 主机网络监控数据上报接口
 // @Tags monitor
@@ -58,12 +57,14 @@ func (ne *NetEvent) Print() {
 // @Success 200	{string} json "{"code": 200,"data" :"","msg":  "success"}"
 // @Failure 400 {string} json "{"code": 400,"data" :"","msg":  "errinfo"}"
 // @Router /monitor/net [POST]
-func netMonitor(c *gin.Context){
+func netMonitor(c *gin.Context) {
 	var ne NetEvent
 	if c.BindJSON(&ne) != nil {
 		c.JSON(http.StatusBadRequest, base.FailReturn("请求数据解析错误"))
 		return
 	}
+
+	ne.TableSyn()
 
 	if err := ne.Validate(); err != nil {
 		c.JSON(http.StatusOK, base.FailReturn(err.Error()))

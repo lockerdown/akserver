@@ -9,10 +9,10 @@ import (
 )
 
 func Router(r *gin.Engine) {
-	monitor := r.Group("/monitor")
+	monitor := r.Group("/log/hids/monitor")
 	{
-		monitor.POST("/file",fileMonitor)
-		monitor.POST("/process",processMonitor)
-		monitor.POST("/net",netMonitor)
+		monitor.POST("/file", fileMonitor)
+		monitor.POST("/process", processMonitor)
+		monitor.POST("/net", netMonitor)
 	}
 }

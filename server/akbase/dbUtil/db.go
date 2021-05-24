@@ -10,7 +10,7 @@ var engine *xorm.Engine
 
 func init() {
 	var err error
-	engine, err = xorm.NewEngine("mysql", "root:bxsec@/godSkills?charset=utf8")
+	engine, err = xorm.NewEngine("mysql", "root:bxsec@tcp(127.0.0.1:33060)/godSkills?charset=utf8")
 	if err != nil {
 		log.Fatalln(err.Error())
 	}

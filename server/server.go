@@ -1,6 +1,7 @@
 package server
 
 import (
+	_ "akserver/docs"
 	"akserver/server/akcenter/monitoring"
 	"akserver/setting"
 	"crypto/tls"
@@ -10,7 +11,6 @@ import (
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"log"
 	"net/http"
-	_ "akserver/docs"
 )
 
 // A AkCenter defines parameters for running an HTTP server.
@@ -22,17 +22,15 @@ type AkCenter struct {
 	// See net.Dial for details of the address format.
 	Addr string
 
-
 	TLSConfig *tls.Config
 }
 
-
-func (a *AkCenter)Start() error {
+func (a *AkCenter) Start() error {
 	serverAdmin := &http.Server{
 		Addr:    a.Addr,
 		Handler: a.handler(),
 	}
-	err := serverAdmin.ListenAndServeTLS(setting.TlsPublicKey,setting.TlsPrivateKey)
+	err := serverAdmin.ListenAndServeTLS(setting.TlsPublicKey, setting.TlsPrivateKey)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -40,11 +38,11 @@ func (a *AkCenter)Start() error {
 	return nil
 }
 
-func (a *AkCenter)Stop() error {
+func (a *AkCenter) Stop() error {
 	return nil
 }
 
-func (a *AkCenter)handler() http.Handler {
+func (a *AkCenter) handler() http.Handler {
 	gin.DisableConsoleColor()
 
 	gin.SetMode(setting.ServerMode)
@@ -67,7 +65,7 @@ func (a *AkCenter)handler() http.Handler {
 	return r
 }
 
-func LoadUrl(r *gin.Engine){
+func LoadUrl(r *gin.Engine) {
 	r.GET("/", func(c *gin.Context) {
 		c.HTML(200, "admin", nil)
 	})
@@ -81,10 +79,9 @@ func createMyRender() multitemplate.Renderer {
 	return p
 }
 
-
-func Run(){
+func Run() {
 	serverAdmin := &AkCenter{
-		Addr: setting.AkServerAddr+":"+setting.AkServerPort,
+		Addr: setting.AkServerAddr + ":" + setting.AkServerPort,
 	}
 
 	serverAdmin.Start()

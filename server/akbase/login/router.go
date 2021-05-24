@@ -32,4 +32,3 @@ func getPublicKey(c *gin.Context) {
 	c.JSON(http.StatusOK, base.SuccessReturn(string(Publickey)))
 	return
 }
-
