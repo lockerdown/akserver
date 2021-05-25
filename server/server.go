@@ -2,15 +2,17 @@ package server
 
 import (
 	_ "akserver/docs"
+	"akserver/server/akcenter/list"
 	"akserver/server/akcenter/monitoring"
 	"akserver/setting"
 	"crypto/tls"
+	"log"
+	"net/http"
+
 	"github.com/gin-contrib/multitemplate"
 	"github.com/gin-gonic/gin"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
-	"log"
-	"net/http"
 )
 
 // A AkCenter defines parameters for running an HTTP server.
@@ -70,6 +72,7 @@ func LoadUrl(r *gin.Engine) {
 		c.HTML(200, "admin", nil)
 	})
 	monitoring.Router(r)
+	list.Router(r)
 	//login.Router(r)
 }
 
