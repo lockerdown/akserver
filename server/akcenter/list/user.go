@@ -10,10 +10,16 @@ import (
 )
 
 func test(c *gin.Context) {
-	article, err := user_service.User()
+	userService := user_service.User{
+		PageNum:  base.GetPage(c),
+		PageSize: base.AppSetting.PageSize,
+	}
+
+	user, err := userService.GetAll()
+	println(user)
 	if err != nil {
 		c.JSON(http.StatusOK, base.FailReturn(err))
 		return
 	}
-	c.JSON(http.StatusOK, base.SuccessReturn(article))
+	c.JSON(http.StatusOK, base.SuccessReturn(user))
 }
