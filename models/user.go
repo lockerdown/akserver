@@ -2,25 +2,23 @@ package models
 
 import (
 	"akserver/server/akbase/dbUtil"
-
-	"github.com/jinzhu/gorm"
 )
 
 type User struct {
-	ID    int    `json:"tag_id" gorm:"index"`
-	Title string `json:"title"`
+	Uid      int
+	userName string
 }
 
 func GetUsers(pageNum int, pageSize int, maps interface{}) ([]*User, error) {
-	var users []*User
-	err := dbUtil.Engine().Where("name = ?", maps).Limit(pageSize, 0).Find(&users)
-	// err := db.Preload("Tag").Where(maps).Offset(pageNum).Limit(pageSize).Find(&articles).Error
-	println(users)
-	if err != nil && err != gorm.ErrRecordNotFound {
+	var file []*User
+	err := dbUtil.Engine().Table("fileevent").Where("uid = ?", file).Limit(pageSize, 0).Find(&file)
+
+	println(file)
+	if err != nil {
 		return nil, err
 	}
 
-	return users, nil
+	return file, nil
 }
 
 // func GetTotal(maps interface{}) (int, error) {

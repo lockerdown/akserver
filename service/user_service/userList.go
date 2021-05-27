@@ -23,7 +23,7 @@ func (a *User) GetAll() ([]*models.User, error) {
 
 func (a *User) getMaps() map[string]interface{} {
 	maps := make(map[string]interface{})
-	maps["deleted_on"] = 0
+	// maps["deleted_on"] = 0
 	// if a.State != -1 {
 	// 	maps["state"] = a.State
 	// }
